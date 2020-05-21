@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.gonzajf.designPatterns.creationals.builder.Animal;
+
 public class BuilderTest {
 
 	@Test

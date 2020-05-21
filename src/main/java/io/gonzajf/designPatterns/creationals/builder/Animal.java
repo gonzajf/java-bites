@@ -1,4 +1,4 @@
-package io.gonzajf.designPatterns;
+package io.gonzajf.designPatterns.creationals.builder;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class Animal {
 		return favouriteFoods;
 	}
 	
-	static class AnimalBuilder {
+	public static class AnimalBuilder {
 
 		private String name;
 		private int age;
