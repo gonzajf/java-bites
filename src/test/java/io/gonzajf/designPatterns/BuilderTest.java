@@ -18,9 +18,10 @@ public class BuilderTest {
 							.setFavouriteFoods(Arrays.asList("First", "Second"))
 							.build();
 		
-		Assertions.assertNotNull(example);
-		Assertions.assertEquals("Name", example.getName());
-		Assertions.assertEquals(5, example.getAge());
-		Assertions.assertLinesMatch(Arrays.asList("First", "Second"), example.getFavouriteFoods());
+		Assertions.assertAll(
+			() -> Assertions.assertNotNull(example),
+			() -> Assertions.assertEquals("Name", example.getName()),
+			() -> Assertions.assertEquals(5, example.getAge()),
+			() -> Assertions.assertLinesMatch(Arrays.asList("First", "Second"), example.getFavouriteFoods()));
 	}
 }

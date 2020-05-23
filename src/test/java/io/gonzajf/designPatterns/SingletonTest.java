@@ -19,6 +19,6 @@ public class SingletonTest {
 	
 	@Test
 	public void instances_are_same_object() {
-		Assertions.assertTrue(instance1 == instance2);
+		Assertions.assertSame(instance1, instance2);
 	}
 }

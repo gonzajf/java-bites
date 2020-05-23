@@ -15,32 +15,36 @@ public class FactoryTest {
 	public void food_consumed_by_zebra() {
 		
 		Food food = FoodFactory.getFood("zebra");
-		Assertions.assertTrue(food instanceof Hay);
-		Assertions.assertEquals(100, food.getQuantity());
+		Assertions.assertAll(
+			() -> Assertions.assertTrue(food instanceof Hay),
+			() -> Assertions.assertEquals(100, food.getQuantity()));
 	}
 	
 	@Test
 	public void food_consumed_by_rabbit() {
 		
 		Food food = FoodFactory.getFood("rabbit");
-		Assertions.assertTrue(food instanceof Pellets);
-		Assertions.assertEquals(5, food.getQuantity());
+		Assertions.assertAll(
+			() -> Assertions.assertTrue(food instanceof Pellets),
+			() -> Assertions.assertEquals(5, food.getQuantity()));
 	}
 	
 	@Test
 	public void food_consumed_by_goat() {
 		
 		Food food = FoodFactory.getFood("goat");
-		Assertions.assertTrue(food instanceof Pellets);
-		Assertions.assertEquals(30, food.getQuantity());
+		Assertions.assertAll(
+			() -> Assertions.assertTrue(food instanceof Pellets),
+			() -> Assertions.assertEquals(30, food.getQuantity()));
 	}
 	
 	@Test
 	public void food_consumed_by_polar_bear() {
 		
 		Food food = FoodFactory.getFood("polar bear");
-		Assertions.assertTrue(food instanceof Fish);
-		Assertions.assertEquals(10, food.getQuantity());
+		Assertions.assertAll(
+			() -> Assertions.assertTrue(food instanceof Fish),
+			() -> Assertions.assertEquals(10, food.getQuantity()));
 	}
 	
 	@Test
