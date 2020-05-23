@@ -5,22 +5,27 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CollectionsTest {
 	
 	private static List<String> list;
 	private static Map<String, String> map;
+	private static Map<String, Integer> counts;
 	
-	@BeforeAll
-	static void setUp() {
+	@BeforeEach
+	public void setUp() {
 		list = new ArrayList<>(Arrays.asList("java", "python", "c", "scala", "php"));
 		
 		map = new HashMap<>();
 		map.put("language", "java");
+		
+		counts = new HashMap<>();
+		counts.put("A", 1);
 	}
 	
 	@Test
@@ -55,5 +60,36 @@ public class CollectionsTest {
 		
 		Assertions.assertEquals(2, map.size());
 	}
+
+	@Test
+	public void merge_test() {
+		
+		BiFunction<String, String, String> mapper = (String::concat);
+				
+		String javaSpring = map.merge("language", "-spring", mapper);
+		Assertions.assertEquals("java-spring", javaSpring);
+	}
 	
+	@Test
+	public void compute_if_present() {
+
+		Integer a = counts.computeIfPresent("A", (k, v) -> v + 1);
+		Integer b = counts.computeIfPresent("B", (k, v) -> v + 1);
+
+		Assertions.assertEquals(2, a);
+		Assertions.assertNull(b);
+	}
+	
+	@Test
+	public void compute_if_absent() {
+
+		counts = new HashMap<>();
+		counts.put("A", 1);
+
+		Integer a = counts.computeIfAbsent("A", k -> 1);
+		Integer b = counts.computeIfAbsent("B", k -> 1);
+
+		Assertions.assertEquals(a, counts.get("A"));
+		Assertions.assertEquals(b, counts.get("B"));
+	}
 }
