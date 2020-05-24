@@ -83,4 +83,29 @@ public class StreamsTests {
 		assertAll(() -> assertEquals(3, set.size()),
 					() -> assertEquals("scala", set.last()));
 	}
+	
+	//The filter() method returns a Stream with elements that match a given expression
+	@Test
+	public void filter_test() {
+		assertEquals(2, stream.filter(x -> x.length() > 4).count());
+	}
+	
+	//The limit() and skip() methods make a Stream smaller. They could make a finite stream
+	//smaller, or they could make a finite stream out of an infinite stream.
+	@Test
+	public void limite_skip_test() {
+		assertEquals(1, stream.skip(2).limit(5).count());
+	}
+	
+	//The map() method creates a one-to-one mapping from the elements in the stream to the
+	//elements of the next step in the stream.
+	@Test
+	public void map_test() {
+		assertEquals("JAVA", stream.map(String::toUpperCase).findFirst().get());
+	}
+	
+	//The sorted() method returns a stream with the elements sorted.
+	public void sorted_test() {
+		assertEquals("scala", stream.sorted(Comparator.reverseOrder()).findFirst().get());
+	}
 }
