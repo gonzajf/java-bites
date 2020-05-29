@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,13 +33,13 @@ public class FileTest {
 	}
 
 	@Test
-	public void file_input_output_stream() throws FileNotFoundException, IOException {
+	public void file_input_output_stream_test() throws FileNotFoundException, IOException {
 
 		File source = new File(otherPath, "CollectionsTest.java");
 		File destination = new File(path, "CollectionsTestCopy.java");
 
-		copy(source, destination);
-		assertAll(() -> assertTrue(destination.exists()), 
+		copyWithStreams(source, destination);
+		assertAll(() -> assertTrue(destination.exists()),
 				() -> assertEquals("CollectionsTestCopy.java", destination.getName()),
 				() -> assertFalse(destination.isDirectory()), 
 				() -> assertTrue(destination.isFile()),
@@ -45,13 +47,43 @@ public class FileTest {
 
 	}
 
-	private static void copy(File source, File destination) throws IOException {
-	
+	private void copyWithStreams(File source, File destination) throws IOException {
+
 		try (InputStream in = new FileInputStream(source); 
 				OutputStream out = new FileOutputStream(destination)) {
+			
 			int b;
 			while ((b = in.read()) != -1) {
 				out.write(b);
+			}
+		}
+	}
+	
+	@Test
+	public void file_buffered_input_output_stream_test() throws FileNotFoundException, IOException {
+
+		File source = new File(otherPath, "CollectionsTest.java");
+		File destination = new File(path, "CollectionsTestBufferedCopy.java");
+
+		copyWithBufferedStreams(source, destination);
+		assertAll(() -> assertTrue(destination.exists()),
+				() -> assertEquals("CollectionsTestBufferedCopy.java", destination.getName()),
+				() -> assertFalse(destination.isDirectory()), 
+				() -> assertTrue(destination.isFile()),
+				() -> assertTrue(destination.length() > 0));
+
+	}
+
+	private void copyWithBufferedStreams(File source, File destination) throws IOException {
+
+		try (InputStream in = new BufferedInputStream(new FileInputStream(source));
+				OutputStream out = new BufferedOutputStream(new FileOutputStream(destination))) {
+			
+			byte[] buffer = new byte[1024];
+			int lengthRead;
+			while ((lengthRead = in.read(buffer)) > 0) {
+				out.write(buffer, 0, lengthRead);
+				out.flush();
 			}
 		}
 	}
