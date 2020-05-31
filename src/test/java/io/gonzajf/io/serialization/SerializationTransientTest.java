@@ -18,48 +18,48 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import io.gonzajf.serialization.Animal;
+import io.gonzajf.serialization.AnimalTransient;
 
-public class SerializationTest {
-
+public class SerializationTransientTest {
 
 	@Test
 	public void serialization_test() throws IOException, ClassNotFoundException {
 		
 		File dataFile = setUp();
-	
-		List<Animal> animalsFromFile = getAnimals(dataFile);
+		List<AnimalTransient> animalsFromFile = getAnimals(dataFile);
 		
 		assertAll(
 			() -> assertFalse(animalsFromFile.isEmpty()),
-			() -> assertTrue(animalsFromFile.stream().anyMatch(a -> a.getName().equals("Tommy Tiger"))),
-			() -> assertTrue(animalsFromFile.stream().anyMatch(a -> a.getAge() == 5)));
+			() -> assertTrue(animalsFromFile.stream().allMatch(a -> a.getName() == null)),
+			() -> assertTrue(animalsFromFile.stream().allMatch(a -> a.getAge() == 0)),
+			() -> assertTrue(animalsFromFile.stream().allMatch(a -> a.getType() == 'P')));
 	}
 	
 	private File setUp() throws IOException {
-		List<Animal> animals = new ArrayList<Animal>();
-		animals.add(new Animal("Tommy Tiger", 5, 'T'));
-		animals.add(new Animal("Peter Penguin", 8, 'P'));
-		File dataFile = new File("src/test/resources", "animal.data");
-		createAnimalsFile(animals, dataFile);
+		List<AnimalTransient> animals = new ArrayList<AnimalTransient>();
+		animals.add(new AnimalTransient("Tommy Tiger", 5, 'T'));
+		animals.add(new AnimalTransient("Peter Penguin", 8, 'P'));
+		File dataFile = new File("src/test/resources", "AnimalTransient.data");
+		createAnimalTransientsFile(animals, dataFile);
 		return dataFile;
 	}
 
-	public static void createAnimalsFile(List<Animal> animals, File dataFile) throws IOException {
+
+	public static void createAnimalTransientsFile(List<AnimalTransient> animals, File dataFile) throws IOException {
 		try (ObjectOutputStream out = new ObjectOutputStream(
 				new BufferedOutputStream(new FileOutputStream(dataFile)))) {
-			for (Animal animal : animals)
+			for (AnimalTransient animal : animals)
 				out.writeObject(animal);
 		}
 	}
 
-	public static List<Animal> getAnimals(File dataFile) throws IOException, ClassNotFoundException {
-		List<Animal> animals = new ArrayList<Animal>();
+	public static List<AnimalTransient> getAnimals(File dataFile) throws IOException, ClassNotFoundException {
+		List<AnimalTransient> animals = new ArrayList<AnimalTransient>();
 		try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(dataFile)))) {
 			while (true) {
 				Object object = in.readObject();
-				if (object instanceof Animal)
-					animals.add((Animal) object);
+				if (object instanceof AnimalTransient)
+					animals.add((AnimalTransient) object);
 			}
 		} catch (EOFException e) {
 			// File end reached
