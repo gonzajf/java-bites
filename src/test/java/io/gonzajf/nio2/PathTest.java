@@ -1,7 +1,9 @@
 package io.gonzajf.nio2;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
@@ -56,5 +58,13 @@ public class PathTest {
 	@Test
 	public void convert_to_absoluth_path_test() {
 		assertTrue(path.toAbsolutePath().isAbsolute());
+	}
+	
+	@Test
+	public void getting_subpath_test() {
+		assertAll(
+			() -> assertEquals("src/test", path.subpath(0, 2).toString()),
+			() -> assertEquals("test", path.subpath(1, 2).toString()),
+			() -> assertThrows(IllegalArgumentException.class, () -> path.subpath(0,5)));
 	}
 }
