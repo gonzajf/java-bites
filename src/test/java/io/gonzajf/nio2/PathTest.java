@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -66,5 +68,16 @@ public class PathTest {
 			() -> assertEquals("src/test", path.subpath(0, 2).toString()),
 			() -> assertEquals("test", path.subpath(1, 2).toString()),
 			() -> assertThrows(IllegalArgumentException.class, () -> path.subpath(0,5)));
+	}
+	
+	@Test
+	public void file_exists_test() {
+		assertTrue(Files.exists(path));
+	}
+	
+	@Test
+	public void same_file_test() throws IOException {
+		Path path2 = Paths.get("src", "test", "resources", "exampleFile.txt");
+		assertTrue(Files.isSameFile(path, path2));
 	}
 }
