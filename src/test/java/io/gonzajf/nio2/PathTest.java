@@ -80,4 +80,16 @@ public class PathTest {
 		Path path2 = Paths.get("src", "test", "resources", "exampleFile.txt");
 		assertTrue(Files.isSameFile(path, path2));
 	}
+	
+	@Test
+	public void attributes_test() throws IOException {
+		assertAll(
+			() -> assertFalse(Files.isDirectory(path)),
+			() -> assertTrue(Files.isDirectory(path.getParent())),
+			() -> assertTrue(Files.isRegularFile(path)),
+			() -> assertFalse(Files.isSymbolicLink(path)),
+			() -> assertFalse(Files.isHidden(path)),
+			() -> assertTrue(Files.isReadable(path)),
+			() -> assertFalse(Files.isExecutable(path)));
+	}
 }
