@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -91,5 +92,15 @@ public class PathTest {
 			() -> assertFalse(Files.isHidden(path)),
 			() -> assertTrue(Files.isReadable(path)),
 			() -> assertFalse(Files.isExecutable(path)));
+	}
+	
+	@Test
+	public void read_attributes_through_basic_file_attributes() throws IOException {
+		BasicFileAttributes data = Files.readAttributes(path, BasicFileAttributes.class);
+	
+		assertAll(
+			() -> assertFalse(data.isDirectory()),
+			() -> assertTrue(data.isRegularFile()),
+			() -> assertFalse(data.isSymbolicLink()));
 	}
 }
