@@ -41,4 +41,20 @@ public class ListNode {
 		}		
 		return head;
 	}
+
+	public static ListNode deleteAtTail(ListNode head) {
+		
+		if(head == null || head.next == null) {
+			return null;
+		} else {
+			ListNode prev = head;
+			ListNode curr = head.next;
+			while(curr.next != null) {
+				curr = curr.next;
+				prev = prev.next;
+			}
+			prev.next = null;
+		}		
+		return head;
+	}
 }
