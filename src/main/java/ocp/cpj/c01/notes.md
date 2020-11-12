@@ -124,4 +124,20 @@ Java relies on context when figuring out what lambda expressions mean. We are pa
 ```Java
 boolean test(Animal a);
 ```
-Since this interface’s method takes an Animal , it means the lambda parameter has to be an Animal. And since that interface’s method returns a boolean, we know that the lambda returns a boolean.
+Since this interface’s method takes an Animal, it means the lambda parameter has to be an Animal. And since that interface’s method returns a boolean, we know that the lambda returns a boolean.
+
+
+#### Understanding Lambda Syntax
+
+The syntax of lambda expressions is tricky because many parts are optional. These two lines are equivalent and do the exact same thing:
+
+```Java
+a -> a.canHop()
+
+(Animal a) -> { return a.canHop(); }
+```
+
+The left side of the arrow operator -> indicates the input parameters for the lambda expression. It can be consumed by a functional interface whose abstract method has the same number of parameters and compatible data types. The right side is referred to as the body of the lambda expression. It can be consumed by a functional interface whose abstract method returns a compatible data type. 
+
+The parentheses () can be omitted in a lambda expression if there is exactly one input parameter and the type is not explicitly stated in the expression. This means that expressions that have zero or more than one input parameter will still require parentheses. 
+
