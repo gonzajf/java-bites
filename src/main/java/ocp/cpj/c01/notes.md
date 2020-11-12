@@ -119,9 +119,9 @@ public class FindMatchingAnimals {
 }
 ```
 
-Java relies on context when fi guring out what lambda expressions mean. We are passing this lambda as the second parameter of the print() method. That method expects a CheckTrait as the second parameter. Since we are passing a lambda instead, Java treats CheckTrait as a functional interface and tries to map it to the single abstract method:
+Java relies on context when figuring out what lambda expressions mean. We are passing this lambda as the second parameter of the *print()* method. That method expects a CheckTrait as the second parameter. Since we are passing a lambda instead, Java treats CheckTrait as a functional interface and tries to map it to the single abstract method:
 
 ```Java
 boolean test(Animal a);
 ```
-Since this interface’s method takes an Animal , it means the lambda parameter has to be an Animal . And since that interface’s method returns a boolean , we know that the lambda returns a boolean.
+Since this interface’s method takes an Animal , it means the lambda parameter has to be an Animal. And since that interface’s method returns a boolean, we know that the lambda returns a boolean.
