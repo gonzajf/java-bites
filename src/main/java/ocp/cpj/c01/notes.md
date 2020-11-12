@@ -75,3 +75,53 @@ public class Tiger implements Sprint {
 In this example, the Sprint class is a functional interface, because it contains exactly one abstract method, and the Tiger class is a valid class that implements the interface. 
 
 While it is a good practice to mark a functional interface with the @FunctionalInterface annotation for clarity, it is not required with functional programming. The Java compiler implicitly assumes that any interface that contains exactly one abstract method is a functional interface. Conversely, if a class marked with the *@FunctionalInterface* annotation contains more than one abstract method, or no abstract methods at all, then the compiler will detect this error and not compile. 
+
+#### Implementing Functional Interfaces with Lambdas
+
+```Java
+public class Animal {
+	
+	private String species;
+	private boolean canHop;
+	private boolean canSwim;
+
+	public Animal(String speciesName, boolean hopper, boolean swimmer) {
+		species = speciesName;
+		canHop = hopper;
+		canSwim = swimmer;
+	}
+
+	public boolean canHop() { return canHop; }
+	public boolean canSwim() { return canSwim; }
+	public String toString() { return species; }
+}
+
+public interface CheckTrait {
+	public boolean test(Animal a);
+}
+```
+The following simple program uses a lambda expression to determine if some sample animals match the specified criteria: 
+
+```Java
+public class FindMatchingAnimals {
+
+	private static void print(Animal animal, CheckTrait trait) {
+		
+		if(trait.test(animal))
+			System.out.println(animal);
+	}
+
+	public static void main(String[] args) {
+	
+		print(new Animal("fish", false, true), a -> a.canHop());
+		print(new Animal("kangaroo", true, false), a -> a.canHop());
+	}
+}
+```
+
+Java relies on context when fi guring out what lambda expressions mean. We are passing this lambda as the second parameter of the print() method. That method expects a CheckTrait as the second parameter. Since we are passing a lambda instead, Java treats CheckTrait as a functional interface and tries to map it to the single abstract method:
+
+```Java
+boolean test(Animal a);
+```
+Since this interface’s method takes an Animal , it means the lambda parameter has to be an Animal . And since that interface’s method returns a boolean , we know that the lambda returns a boolean.
