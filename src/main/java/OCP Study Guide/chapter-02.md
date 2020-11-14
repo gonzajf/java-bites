@@ -186,3 +186,114 @@ If we add or remove all of the data types, then these lambda expressions do comp
 (String s, int z) -> { return s.length()+z; }
 (a, b, c) -> a.getName()
 ```
+
+## Implementing Polymorphism
+
+Polymorphism is the ability of a single interface to support multiple underlying forms. In Java, this allows multiple types of objects to be passed to a single method or class.  
+Example:
+
+```Java
+public interface LivesInOcean { public void makeSound(); }
+	
+public class Dolphin implements LivesInOcean {
+	public void makeSound() { System.out.println("whistle"); }
+}
+
+public class Whale implements LivesInOcean {
+	public void makeSound() { System.out.println("sing"); }
+}
+
+public class Oceanographer {
+	
+	public void checkSound(LivesInOcean animal) {
+		animal.makeSound();
+	}
+
+	public void main(String[] args) {
+		Oceanographer o = new Oceanographer();
+		o.checkSound(new Dolphin());
+		o.checkSound(new Whale());
+	}
+}
+```
+
+This code compiles and executes without issue and yields the following output:  
+
+```Java
+whistle
+sing
+```
+
+In this sample code, our Oceanographer class includes a method named *checkSound()* that is capable of accepting any object whose class implements the LivesInOcean interface.  
+
+Polymorphism also allows one object to take on many different forms.  
+A Java object may be accessed using a reference with the same type as the object, a reference that is a superclass of the object, or a reference that defines an interface that the object implements, either directly or through a superclass. Furthermore, a cast is not required if the object is being reassigned to a supertype or interface of the object.  
+Example:
+
+```Java
+public class Primate {
+
+	public boolean hasHair() {
+		return true;
+	}
+}
+
+public interface HasTail {
+	public boolean isTailStriped();
+}
+
+public class Lemur extends Primate implements HasTail {
+
+	public int age = 10;
+	
+	public boolean isTailStriped() {
+		return false;
+	}
+
+	public static void main(String[] args) {
+		Lemur lemur = new Lemur();
+		System.out.println(lemur.age);
+		HasTail hasTail = lemur;
+		System.out.println(hasTail.isTailStriped());
+		Primate primate = lemur;
+		System.out.println(primate.hasHair());
+	}
+}
+```
+
+The most important thing to note about this example is that only one object, Lemur, is created and referenced. The ability of the Lemur object to be passed as an instance of an interface it implements, HasTail, as well as an instance of one of its superclasses, Primate, is the nature of polymorphism.  
+If you use a variable to refer to an object, then only the methods or variables that are part of the variable’s reference type can be called without an explicit cast.
+For example:
+
+```Java
+HasTail hasTail = lemur;
+System.out.println(hasTail.age); // DOES NOT COMPILE
+
+Primate primate = lemur;
+System.out.println(primate.isTailStriped()); // DOES NOT COMPILE
+```
+
+The reference hasTail has direct access only to methods defined with the HasTail interface; therefore, it doesn’t know that the variable age is part of the object. Likewise, the reference primate has access only to methods defined in the Primate class,
+and it doesn’t have direct access to the isTailStriped() method.  
+
+### Distinguishing between an Object and a Reference
+
+In Java, all objects are accessed by reference, so as a developer you never have direct access to the memory of the object itself.
+Conceptually, though, you should consider the object as the entity that exists in memory, allocated by the Java runtime environment. Regardless of the type of the reference that you have for the object in memory, the object itself doesn’t change.  
+
+We can summarize this principle with the following two rules:
+
+1. The type of the object determines which properties exist within the object in memory.
+2. The type of the reference to the object determines which methods and variables are
+accessible to the Java program.  
+
+It therefore follows that successfully changing a reference of an object to a new reference type may give you access to new properties of the object, but those properties existed before the reference change occurred.  
+
+### Casting Object References
+
+Here are some basic rules to keep in mind when casting variables:
+
+1. Casting an object from a subclass to a superclass doesn’t require an explicit cast.
+2. Casting an object from a superclass to a subclass requires an explicit cast.
+3. The compiler will not allow casts to unrelated types.
+4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.  
