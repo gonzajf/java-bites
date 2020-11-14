@@ -307,4 +307,15 @@ In software development, encapsulation is the idea of combining fields and metho
 
 The underlying idea of encapsulation is that no actor other than the class itself should have direct access to its data. The class is said to encapsulate the data it contains and prevent anyone from directly accessing it.  
 
+### Creating Java Beans
 
+Encapsulation is so prevalent in Java that there is a standard for creating classes that store data, called JavaBeans.
+
+1. Properties are private.
+2. Getter for non‐boolean properties begins with get.
+3. Getters for boolean properties may begin with is or get.
+4. Setter methods begin with set.
+5. The method name must have a prefix of set/get/is followed by the first letter of the property in uppercase and followed by the
+rest of the property name.
+
+> Although boolean values use is to start their getter method, the same does not apply to instances of the wrapper Boolean class, which use get.  
