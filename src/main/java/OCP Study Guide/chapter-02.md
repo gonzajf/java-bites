@@ -297,3 +297,14 @@ Here are some basic rules to keep in mind when casting variables:
 2. Casting an object from a superclass to a subclass requires an explicit cast.
 3. The compiler will not allow casts to unrelated types.
 4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.  
+
+
+## Understanding Design Principles
+
+### Encapsulating Data
+
+In software development, encapsulation is the idea of combining fields and methods in a class such that the methods operate on the data, as opposed to the users of the class accessing the fields directly.  
+
+The underlying idea of encapsulation is that no actor other than the class itself should have direct access to its data. The class is said to encapsulate the data it contains and prevent anyone from directly accessing it.  
+
+
