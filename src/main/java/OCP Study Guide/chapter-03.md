@@ -60,3 +60,43 @@ and the compiler turns it into:
 Robot r = (Robot) crate.emptyCrate();
 ```
 
+### Generic Interfaces
+
+Just like a class, an interface can declare a formal type parameter.
+
+```Java
+public interface Shippable<T> {
+    void ship(T t);
+}
+```
+
+There are three ways a class can approach implementing this interface.  
+The first is to specify the generic type in the class.  
+
+```Java
+class ShippableRobotCrate implements Shippable<Robot> {
+    public void ship(Robot t) { }
+}
+```
+
+The next way is to create a generic class.
+
+```Java
+class ShippableAbstractCrate<U> implements Shippable<U> {
+    
+    public void ship(U t) { }
+}
+```
+
+The final way is to not use generics at all. This is the old way of writing code. It generates a compiler warning about Shippable being a raw type.
+
+#### What You Can’t Do with Generic Types
+
+Most of the limitations are due to type erasure. Oracle refers to types whose information is fully available at runtime as reifiable. Reifiable types can do anything that Java allows. Non-reifiable types have some limitations.  
+
+1. *Call the constructor*. new T() is not allowed because at runtime it would be new Object().
+2. *Create an array of that static type*. This one is the most annoying, but it makes sense because you’d be creating an array of Objects.
+3. *Call instanceof*. This is not allowed because at runtime List<Integer> and List<String> look the same to Java thanks to type erasure.
+4. *Use a primitive type as a generic type parameter*. You can use the wrapper class instead. If you want a type of int, just use Integer.
+5. *Create a static variable as a generic type parameter*. This is not allowed because the type is linked to the instance of the class.  
+
