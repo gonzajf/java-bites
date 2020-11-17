@@ -100,3 +100,16 @@ Most of the limitations are due to type erasure. Oracle refers to types whose in
 4. *Use a primitive type as a generic type parameter*. You can use the wrapper class instead. If you want a type of int, just use Integer.
 5. *Create a static variable as a generic type parameter*. This is not allowed because the type is linked to the instance of the class.  
 
+### Generic Methods
+
+This is often useful for *static* methods since they aren’t part of an instance that can declare the type. However, it is also
+allowed on non-static methods as well.  
+
+```Java
+public static <T> Crate<T> ship(T t) {
+    System.out.println("Preparing " + t);
+    return new Crate<T>();
+}
+```
+
+The method parameter is the generic type T . The return type is a Crate<T>. Before the return type, we declare the formal type parameter of <T>.  
