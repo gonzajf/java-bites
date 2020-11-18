@@ -113,3 +113,34 @@ public static <T> Crate<T> ship(T t) {
 ```
 
 The method parameter is the generic type T . The return type is a Crate<T>. Before the return type, we declare the formal type parameter of <T>.  
+
+### Legacy Code
+
+In this section, we are referring to code that was written to target Java 1.4 or lower, and therefore it does not use generics. Collections written without generics are also known as *raw collections*.  
+
+Using generics gives us compile time safety. When some code uses generics and other code does not, it is easy to get lulled into a false sense of security.
+
+```Java
+class Dragon {}
+class Unicorn {}
+
+public class LegacyDragons {
+
+    public static void main(String[] args) {
+      
+        List unicorns = new ArrayList();
+        unicorns.add(new Unicorn());
+        printDragons(unicorns);
+    }
+
+    private static void printDragons(List<Dragon> dragons) {
+        for (Dragon dragon: dragons) {
+        // ClassCastException
+            System.out.println(dragon);
+        }
+    } 
+}
+```
+
+In this example, we get a *ClassCastException* on a line that is working with a generic list. At first, this seems odd. This is the problem that generics are supposed to solve. The difference is that all of the code doesn’t use generics here. The *main()* method calls *printDragons()* with a raw type. Due to type erasure, Java doesn’t know this is a problem until runtime, when it attempts to cast a Unicorn to a Dragon . The cast is tricky because it doesn’t appear in the code. With generic types, Java writes the casts for us.  
+Java knows that raw types are asking for trouble, and it presents a *compiler warning* for this case.  
