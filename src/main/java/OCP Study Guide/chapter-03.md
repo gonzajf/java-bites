@@ -154,3 +154,20 @@ You can use generic wildcards in three ways:
 1. **Unbounded wildcard**: *?*
 2. **Wildcard with an upper bound**: *? extends type*
 3. **Wildcard with a lower bound**: *? super type*
+
+#### Unbounded Wildcards
+
+An unbounded wildcard represents any data type. You use *?* when you want to specify that any type is OK with you.  
+
+```Java
+public static void printList(List<?> list) {
+    for (Object x: list) System.out.println(x);
+}
+public static void main(String[] args) {
+    List<String> keywords = new ArrayList<>();
+    keywords.add("java");
+    printList(keywords);
+}
+```
+
+*printList()* takes any type of list as a parameter. keywords is a list of type String and matches to be a list of anything. “Anything” just happens to be a String here.  
