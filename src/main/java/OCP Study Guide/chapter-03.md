@@ -144,3 +144,13 @@ public class LegacyDragons {
 
 In this example, we get a *ClassCastException* on a line that is working with a generic list. At first, this seems odd. This is the problem that generics are supposed to solve. The difference is that all of the code doesn’t use generics here. The *main()* method calls *printDragons()* with a raw type. Due to type erasure, Java doesn’t know this is a problem until runtime, when it attempts to cast a Unicorn to a Dragon . The cast is tricky because it doesn’t appear in the code. With generic types, Java writes the casts for us.  
 Java knows that raw types are asking for trouble, and it presents a *compiler warning* for this case.  
+
+### Bounds
+
+A *bounded parameter type* is a generic type that specifies a bound for the generic.  
+A wildcard generic type is an unknown generic type represented with a question mark ( ? ).  
+You can use generic wildcards in three ways:
+
+1. **Unbounded wildcard**: *?*
+2. **Wildcard with an upper bound**: *? extends type*
+3. **Wildcard with a lower bound**: *? super type*
