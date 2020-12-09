@@ -171,3 +171,43 @@ public static void main(String[] args) {
 ```
 
 *printList()* takes any type of list as a parameter. keywords is a list of type String and matches to be a list of anything. “Anything” just happens to be a String here.  
+
+#### Upper-Bounded Wildcards
+
+Let’s try to write a method that adds up the total of a list of numbers. We’ve established that a generic type can’t just use a subclass:  
+
+```Java
+ArrayList<Number> list = new ArrayList<Integer>(); // DOES NOT COMPILE
+```
+
+Instead, we need to use a wildcard:
+
+```Java
+ArrayList<? extends Number> list = new ArrayList<Integer>();
+```
+
+The upper-bounded wildcard says that any class that extends Number or Number itself can be used as the formal parameter type.  
+
+```Java
+public static long total(List<? extends Number> list) {
+    long count = 0;
+    for (Number number: list)
+        count += number.longValue();
+    return count;
+}
+```
+
+Java converts the previous code to something equivalent to the following (due to type erasure):
+
+```Java
+public static long total(List list) {
+    long count = 0;
+    for (Object obj: list) {
+        Number number = (Number) obj;
+        count += number.longValue();
+    }
+return count;
+}
+```
+
+Something interesting happens when we work with upper bounds or unbounded wildcards. The list becomes logically immutable.  
