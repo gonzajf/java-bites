@@ -234,3 +234,12 @@ public static void addSound(List<? super String> list) { //lower bound
 ```
 
 With a lower bound, we are telling Java that the list will be a list of String objects or a list of some objects that are a superclass of String. Either way, it is safe to add a String to that list.  
+
+## Using Lists, Sets, Maps, and Queues
+
+A *collection* is a group of objects contained in a single object. The *Java Collections Framework* is a set of classes in java.util for storing collections. There are four main interfaces in the Java Collections Framework:
+
+1. List: an ordered collection of elements that allows duplicate entries. Elements in a list can be accessed by an *int* index.
+2. Set: a collection that does not allow duplicate entries.
+3. Queue: a collection that order its elements in a specified order for processing.
+4. Map: a collection that maps keys to values, witho no duplicates keys allowed. The elements in a map are key/value pairs.
