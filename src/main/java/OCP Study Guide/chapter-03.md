@@ -211,3 +211,26 @@ return count;
 ```
 
 Something interesting happens when we work with upper bounds or unbounded wildcards. The list becomes logically immutable.  
+
+#### Lower-Bounded Wildcards
+
+Let’s try to write a method that adds a string “quack” to two lists:  
+
+```Java
+List<String> strings = new ArrayList<String>();
+strings.add("tweet");
+List<Object> objects = new ArrayList<Object>(strings);
+addSound(strings);
+addSound(objects);
+```
+
+The problem is that we want to pass a List<String> and a List<Object> to the same method.
+To solve this problem, we need to use a lower bound:
+
+```Java
+public static void addSound(List<? super String> list) { //lower bound
+    list.add("quack");
+}
+```
+
+With a lower bound, we are telling Java that the list will be a list of String objects or a list of some objects that are a superclass of String. Either way, it is safe to add a String to that list.  
