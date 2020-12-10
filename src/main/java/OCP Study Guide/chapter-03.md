@@ -261,3 +261,15 @@ The main benefit of an ArrayList is that you can look up any element in constant
 
 A LinkedList is special because it implements both *List* and *Queue* interfaces and it has additional methods to facilitate adding or removing from the beginning and/or end of the list.  
 The main benefits of a LinkedList are that you can access, add, and remove from the beginning and end of the list in constant time. The tradeoff is that dealing with an arbitrary index takes linear time. This makes a LinkedList a good choice when you’ll be usingit as *Queue*.
+
+
+### Using the *Set* Interface
+
+You use a set when you don’t want to allow duplicate entries.
+
+#### Comparing *Set* Implementations
+
+##### HashSet
+
+A HashSet stores its elements in a hash table. This means that it uses the *hashCode()* method of the objects to retrieve them more efficiently.  
+The main benefit is that adding elements and checking if an element is in the set both have constant time. The tradeoff is that you lose the order in which you inserted the elements. Most of the time, you aren’t concerned with this in a set anyway, making HashSet the most common set.
