@@ -250,4 +250,10 @@ You use a list when you want an ordered collection that can contain duplicate en
 Sometimes, you don’t actually care about the order of elements in a list. List is like the “go to” data type.  
 The main thing that all List implementations have in common is that they are ordered and allow duplicates. Beyond that, they each offer different functionality.
 
+#### Comparing *List* Implementations
+
+##### ArrayList
+
+An ArrayList is like a resizable array. When elements are added, the ArrayList automatically grows. When you aren’t sure which collection to use, use an ArrayList.  
+The main benefit of an ArrayList is that you can look up any element in constant time. Adding or removing an element is slower than accessing an element. This makes an ArrayList a good choice when you are reading more often than (or the same amount as) writing to the ArrayList.  
 
