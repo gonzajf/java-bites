@@ -243,3 +243,11 @@ A *collection* is a group of objects contained in a single object. The *Java Col
 2. Set: a collection that does not allow duplicate entries.
 3. Queue: a collection that order its elements in a specified order for processing.
 4. Map: a collection that maps keys to values, witho no duplicates keys allowed. The elements in a map are key/value pairs.
+
+### Using the *List* Interface
+
+You use a list when you want an ordered collection that can contain duplicate entries. Items can be retrieved and inserted at specific positions in the list based on an int index much like an array.  
+Sometimes, you don’t actually care about the order of elements in a list. List is like the “go to” data type.  
+The main thing that all List implementations have in common is that they are ordered and allow duplicates. Beyond that, they each offer different functionality.
+
+
