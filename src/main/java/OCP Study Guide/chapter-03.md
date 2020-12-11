@@ -301,3 +301,48 @@ A TreeMap stores the keys in a sorted tree structure. The main benefit is that t
 
 You can also sort objects that you create. Java provides an interface called *Comparable*. If your class implements *Comparable*, it can be used in these data structures that require comparison.  
 There is also a class called *Comparator*, which is used to specify that you want to use a different order than the object itself provides.  
+
+### Comparable
+
+The Comparable interface has only one method:  
+
+```Java
+public interface Comparable<T> {
+    public int compareTo(T o);
+}
+```
+
+Any object can be Comparable. For example:  
+
+```Java
+public class Duck implements Comparable<Duck> {
+    private String name;
+    
+    public Duck(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return name;
+    }
+    public int compareTo(Duck d) {
+        return name.compareTo(d.name); // call String's compareTo
+    }
+    public static void main(String[] args) {
+        List<Duck> ducks = new ArrayList<>();
+        ducks.add(new Duck("Quack"));
+        ducks.add(new Duck("Puddles"));
+        Collections.sort(ducks); //sort by name
+        System.out.println(ducks); // [Puddles, Quack]
+    } 
+}
+```
+
+The *Duck* class implements the *Comparable* interface. Without implementing that interface, all we have is a method named *compareTo()*, but it wouldn’t be a Comparable object.  
+Finally, the *Duck* class implements *compareTo()*. Since *Duck* is comparing objects of type String and the String class already has a *compareTo()* method, it can just delegate.  
+
+What does *compareTo()* return?
+
+1. The number zero is returned when the current object is equal to the argument to *compareTo()*.
+2. A number less than zero is returned when the current object is smaller than the argument to *compareTo()*.
+3. A number greater than zero is returned when the current object is larger than the argument to *compareTo()*.
