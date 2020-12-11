@@ -274,7 +274,10 @@ You use a set when you don’t want to allow duplicate entries.
 A HashSet stores its elements in a hash table. This means that it uses the *hashCode()* method of the objects to retrieve them more efficiently.  
 The main benefit is that adding elements and checking if an element is in the set both have constant time. The tradeoff is that you lose the order in which you inserted the elements. Most of the time, you aren’t concerned with this in a set anyway, making HashSet the most common set.
 
-
 ##### TreeSet
 
-A TreeSet stores its elements in a sorted tree structure. The main benefit is that the set is always in sorted order. The tradeoff is that adding and checking if an element is present are both *O(log n)*. TreeSet implements a special interface called NavigableSet, which lets you slice up the collection.
+A TreeSet stores its elements in a sorted tree structure. The main benefit is that the set is always in sorted order. The tradeoff is that adding and checking if an element is present are both *O(log n)*. TreeSet implements a special interface called NavigableSet, which lets you slice up the collection.  
+
+### Using the *Queue* Interface
+
+You use a queue when elements are added and removed in a specific order. Queues are typically used for sorting elements prior to processing them.  
