@@ -281,3 +281,9 @@ A TreeSet stores its elements in a sorted tree structure. The main benefit is th
 ### Using the *Queue* Interface
 
 You use a queue when elements are added and removed in a specific order. Queues are typically used for sorting elements prior to processing them.  
+
+#### Comparing *Queue* Implementations
+
+In addition to being a list, a LinkedList, is a double-ended queue. A double-ended queue is different from a regular queue in that you can insert and remove elements from both the front and back of the queue.  
+The main benefit of a LinkedList is that it implements both the List and Queue interfaces. The tradeoff is that it isn’t as efficient as a “pure” queue.  
+An ArrayDeque is a “pure” double-ended queue and it stores its elements in a resizable array. The main benefit of an ArrayDeque is that it is more efficient than a LinkedList.  
