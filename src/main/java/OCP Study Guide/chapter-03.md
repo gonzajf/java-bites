@@ -287,3 +287,13 @@ You use a queue when elements are added and removed in a specific order. Queues 
 In addition to being a list, a LinkedList, is a double-ended queue. A double-ended queue is different from a regular queue in that you can insert and remove elements from both the front and back of the queue.  
 The main benefit of a LinkedList is that it implements both the List and Queue interfaces. The tradeoff is that it isn’t as efficient as a “pure” queue.  
 An ArrayDeque is a “pure” double-ended queue and it stores its elements in a resizable array. The main benefit of an ArrayDeque is that it is more efficient than a LinkedList.  
+
+### Map
+
+You use a map when you want to identify values by a key.  
+
+#### Comparing *Map* Implementations
+
+A HashMap stores the keys in a hash table. This means that it uses the *hashCode()* method of the keys to retrieve their values more efficiently.  
+The main benefit is that adding elements and retrieving the element by key both have constant time. The tradeoff is that you lose the order in which you inserted the elements. Most of the time, you aren’t concerned with this in a map anyway. If you were, you could use LinkedHashMap.  
+A TreeMap stores the keys in a sorted tree structure. The main benefit is that the keys are always in sorted order. The tradeoff is that adding and checking if a key is present are both *O(log n)*.  
