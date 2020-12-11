@@ -262,7 +262,6 @@ The main benefit of an ArrayList is that you can look up any element in constant
 A LinkedList is special because it implements both *List* and *Queue* interfaces and it has additional methods to facilitate adding or removing from the beginning and/or end of the list.  
 The main benefits of a LinkedList are that you can access, add, and remove from the beginning and end of the list in constant time. The tradeoff is that dealing with an arbitrary index takes linear time. This makes a LinkedList a good choice when you’ll be usingit as *Queue*.
 
-
 ### Using the *Set* Interface
 
 You use a set when you don’t want to allow duplicate entries.
@@ -297,3 +296,8 @@ You use a map when you want to identify values by a key.
 A HashMap stores the keys in a hash table. This means that it uses the *hashCode()* method of the keys to retrieve their values more efficiently.  
 The main benefit is that adding elements and retrieving the element by key both have constant time. The tradeoff is that you lose the order in which you inserted the elements. Most of the time, you aren’t concerned with this in a map anyway. If you were, you could use LinkedHashMap.  
 A TreeMap stores the keys in a sorted tree structure. The main benefit is that the keys are always in sorted order. The tradeoff is that adding and checking if a key is present are both *O(log n)*.  
+
+## *Comparator* vs. *Comparable*
+
+You can also sort objects that you create. Java provides an interface called *Comparable*. If your class implements *Comparable*, it can be used in these data structures that require comparison.  
+There is also a class called *Comparator*, which is used to specify that you want to use a different order than the object itself provides.  
