@@ -351,3 +351,54 @@ What does *compareTo()* return?
 
 If you write a class that implements *Comparable*, you introduce new business logic for determining equality. The *compareTo()* method returns 0 if two objects are equal, while your *equals()* method returns true if two objects are equal. A natural ordering that uses *compareTo()* is said to be consistent with equals if, and only if, *x.equals(y)* is true whenever *x.compareTo(y)* equals 0. You are strongly encouraged to make your Comparable classes consistent with equals because not all collection classes behave predictably if the *compareTo()* and *equals()* methods are not consistent.  
 
+### Comparator
+
+Sometimes you want to sort an object that did not implement *Comparable*, or you want to sort objects in different ways at different times.  
+Example:
+
+```Java
+public class Duck implements Comparable<Duck> {
+
+    private String name;
+    private int weight;
+
+    public Duck(String name, int weight) {
+        this.name = name;
+        this.weight = weight;
+    }
+    public String getName() { return name; }
+    public int getWeight() { return weight; }
+    public String toString() { return name; }
+    
+    public int compareTo(Duck d) {
+        return name.compareTo(d.name);
+    }
+}
+```
+
+The Duck class itself can define *compareTo()* in only one way. In this case, name was chosen. If we want to sort by something else, we have to define that sort order outside the *compareTo()* method:
+
+```Java
+public static void main(String[] args) {
+
+    Comparator<Duck> byWeight = new Comparator<Duck>() {
+        public int compare(Duck d1, Duck d2) {
+            return d1.getWeight()—d2.getWeight();
+       }
+    };
+    
+    List<Duck> ducks = new ArrayList<>();
+    ducks.add(new Duck("Quack", 7));
+    ducks.add(new Duck("Puddles", 10));
+    Collections.sort(ducks);
+    System.out.println(ducks); // [Puddles, Quack]
+    Collections.sort(ducks, byWeight);
+    System.out.println(ducks); // [Quack, Puddles]
+}
+```
+
+*Comparator* is a functional interface since there is only one abstract method to implement. This means that we can rewrite the comparator:
+
+```Java
+Comparator<Duck> byWeight = (d1, d2) -> d1.getWeight()—d2.getWeight();
+```
