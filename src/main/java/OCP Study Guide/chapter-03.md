@@ -346,3 +346,8 @@ What does *compareTo()* return?
 1. The number zero is returned when the current object is equal to the argument to *compareTo()*.
 2. A number less than zero is returned when the current object is smaller than the argument to *compareTo()*.
 3. A number greater than zero is returned when the current object is larger than the argument to *compareTo()*.
+
+#### *compareTo()* and *equals()* Consistency
+
+If you write a class that implements *Comparable*, you introduce new business logic for determining equality. The *compareTo()* method returns 0 if two objects are equal, while your *equals()* method returns true if two objects are equal. A natural ordering that uses *compareTo()* is said to be consistent with equals if, and only if, *x.equals(y)* is true whenever *x.compareTo(y)* equals 0. You are strongly encouraged to make your Comparable classes consistent with equals because not all collection classes behave predictably if the *compareTo()* and *equals()* methods are not consistent.  
+
