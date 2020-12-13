@@ -402,3 +402,38 @@ public static void main(String[] args) {
 ```Java
 Comparator<Duck> byWeight = (d1, d2) -> d1.getWeight()—d2.getWeight();
 ```
+
+## Searching and Sorting
+
+The sort method uses the *compareTo()* method to sort. It expects the objects to be sorted to be Comparable.  
+
+```Java
+public class SortRabbits {
+    
+    static class Rabbit { 
+        int id; 
+    }
+    
+    public static void main(String[] args) {
+        List<Rabbit> rabbits = new ArrayList<>();
+        rabbits.add(new Rabbit());
+        Collections.sort(rabbits); // DOES NOT COMPILE
+    }    
+}
+```
+
+Java knows that the Rabbit class is not Comparable. It knows sorting will fail, so it doesn’t even let the code compile. You can fix this by passing a *Comparator* to *sort()*.  
+
+There are collections that require classes to implement *Comparable*. Unlike sorting, they don’t check that you have actually implemented Comparable at compile time.  
+Just like searching and sorting, you can tell collections that require sorting that you wish to use a specific Comparator, for example:
+
+```Java
+Set<Rabbit> rabbit = new TreeSet<>(new Comparator<Rabbit>() {
+    public int compare(Rabbit r1, Rabbit r2) {
+        return r1.id = r2.id;
+    }
+});
+rabbit.add(new Rabbit());
+```
+
+Now Java knows that you want to sort by id and all is well. Comparators are helpful objects. They let you separate sort order from the object to be sorted.  
